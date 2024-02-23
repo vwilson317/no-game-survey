@@ -1,21 +1,26 @@
+import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { DataHelper } from './DataHelper.tsx';
 
 const dataHelper = new DataHelper();
-let item;
-dataHelper.get(1)
-  .then(x => {
-    item = x;
-  });
-
 
 export default function App() {
+  const [data, setData] = useState();
+
+  const getQuestions = async () => {
+    let item = await dataHelper.get(1);
+    setData(item);
+  }
+
+  useEffect(() => {
+    getQuestions()
+  }, [])
 
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
-      <Text>{item}</Text>
+      <Text>{data}</Text>
       <Text>Neeeeew code</Text>
       <StatusBar style="auto" />
     </View>
