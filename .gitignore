@@ -30,3 +30,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+DatabaseProjectNoGameDb/bin/
+DatabaseProjectNoGameDb/obj/
+DatabaseProjectNoGameDb/DatabaseProjectNoGameDb_1.publish.xml
