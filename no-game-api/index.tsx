@@ -7,7 +7,12 @@ app.use(cors())
 
 app.get('/api/questions', (req, res) => {
   console.log('[GET] request made')
-  res.send('Hello I am a question?')
+  res.json([{
+    key: 1,
+      id: 1,
+      text: "i'm a mock question from the server?"
+    }]);
+  //res.send('Hello I am a question?')
 })
 
 app.listen(port, () => {

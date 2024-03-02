@@ -1,27 +1,29 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { DataHelper } from './DataHelper.tsx';
+import { get } from './DataHelper.tsx';
+import QuestionView from './QuestionView.tsx';
 
-const dataHelper = new DataHelper();
+// const dataHelper = new DataHelper();
 
 export default function App() {
-  const [data, setData] = useState();
+  const [questions, setQuestions] = useState([]);
 
   const getQuestions = async () => {
-    let item = await dataHelper.get(1);
-    setData(item);
+    let item = await get(1);
+    setQuestions(item);
   }
 
   useEffect(() => {
     getQuestions()
-  }, [])
+  }, []);
 
+  // const questionsDom = questions.map((questionJson) => {
+
+  // })
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <Text>{data}</Text>
-      <Text>Neeeeew code</Text>
+      <QuestionView data={questions}/>
       <StatusBar style="auto" />
     </View>
   );
