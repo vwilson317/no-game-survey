@@ -34,3 +34,4 @@ DatabaseProjectNoGameDb/bin/
 DatabaseProjectNoGameDb/obj/
 DatabaseProjectNoGameDb/DatabaseProjectNoGameDb_1.publish.xml
 no-game-api/out/
+no-game-app/.env
