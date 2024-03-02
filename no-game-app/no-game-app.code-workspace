@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "DatabaseProjectNoGameDb",
+			"path": "../DatabaseProjectNoGameDb"
+		}
+	],
+	"settings": {}
+}
