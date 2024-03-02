@@ -7,11 +7,11 @@ import QuestionView from './QuestionView.tsx';
 // const dataHelper = new DataHelper();
 
 export default function App() {
-  const [questions, setQuestions] = useState([]);
+  const [questionSet, setQuestionSets] = useState([]);
 
   const getQuestions = async () => {
     let item = await get(1);
-    setQuestions(item);
+    setQuestionSets(item);
   }
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function App() {
   // })
   return (
     <View style={styles.container}>
-      <QuestionView data={questions}/>
+      <QuestionView questionSet={questionSet}/>
       <StatusBar style="auto" />
     </View>
   );

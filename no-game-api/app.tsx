@@ -2,13 +2,13 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const port = 3000
-const da = require('./data/index')
+const da = require('./data/dataAccess')
 
 app.use(cors())
 
 // get lastest question set (question set with the most recent update
 // to a question in the collection)
-app.get('/api/questions', async (req, res) => {
+app.get('/api/questionsets', async (req, res) => {
   const questions = await da.getRecentQuestionSet();
   console.log('[GET] questions request made')
   res.json(questions);

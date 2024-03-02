@@ -1,3 +1,6 @@
+import { QuestionSet } from "../models/questionSet.tsx";
+import { Question } from "../models/question.tsx";
+
 const sqlServer = require('mssql')
 
 // Create a connection pool
@@ -47,7 +50,14 @@ async function query(sql, params =[]){
 
 async function getRecentQuestionSet(){
     const quertStr = "select top(1) * from QuestionSet Order By LastUpdatedUtc desc";
-    return query(quertStr);
+    
+    //this is business logic, so it should not be in the data access layer
+    const results = await query(quertStr);
+    const questionSet: QuestionSet = results[0];
+    const questionQueryStr = `select * from Question where QuestionSetId = ${questionSet.Id}`;
+    const questions = await query(questionQueryStr);
+    questionSet.Questions = questions;
+    return questionSet;
 };
 
 module.exports = {getRecentQuestionSet}

@@ -5,8 +5,9 @@ const QuestionView = (props: any) => {
     // const [questions, setQuestions] = useState(props.data);
     return(
         <View>
-            <FlatList data={props.data}
-            renderItem={({item}) => <Text>{item.Name}</Text>}/>
+            <Text>{props.questionSet.Name}</Text>
+            <FlatList data={props.questionSet.Questions}
+            renderItem={({item}) => <Text>{item.Text}</Text>}/>
         </View>
         // <Text>Question view component</Text>
     );
