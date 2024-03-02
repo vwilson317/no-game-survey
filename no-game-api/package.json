@@ -2,7 +2,7 @@
   "name": "no-game-api",
   "version": "1.0.0",
   "description": "api for the no game app",
-  "main": "index.tsx",
+  "main": "app.tsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
   }
 }
