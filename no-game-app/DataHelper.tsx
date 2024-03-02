@@ -17,7 +17,7 @@ import _ from 'lodash';
       return data;
     }
     else {
-      return 'blahhhh';
+      return 'Error getting questions from the server';
     }
   }
 

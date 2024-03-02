@@ -6,7 +6,7 @@ const QuestionView = (props: any) => {
     return(
         <View>
             <FlatList data={props.data}
-            renderItem={({item}) => <Text>{item.text}</Text>}/>
+            renderItem={({item}) => <Text>{item.Name}</Text>}/>
         </View>
         // <Text>Question view component</Text>
     );

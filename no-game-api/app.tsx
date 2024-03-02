@@ -11,11 +11,7 @@ app.use(cors())
 app.get('/api/questions', async (req, res) => {
   const questions = await da.getRecentQuestionSet();
   console.log('[GET] questions request made')
-  debugger
-  res.json([{
-      id: 1,
-      text: "i'm a mock question from the server?"
-    }]);
+  res.json(questions);
 })
 
 app.get('/api/questionsets/:id', (req, res) => {
