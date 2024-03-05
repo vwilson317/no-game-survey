@@ -1,18 +1,17 @@
-import React from 'react';
-import { Button, FlatList, View } from 'react-native';
+import React, { ReactHTMLElement } from 'react';
+import { Button, FlatList, View, Text } from 'react-native';
 import { useEffect, useState } from 'react';
-import { getMenuItems } from './DataHelper.tsx';
+import { getMenuItems } from './DataHelper';
 
 interface MenuProps {
     // define your props here
 }
 
 const Menu: React.FC<MenuProps> = (props) => {
-    const [questionSets, setQuestionSets] = useState([{ Name: '' }]);
+    const [questionSets, setQuestionSets] = useState([{ Name: '', Id: 0 }]);
 
     const getQuestions = async () => {
         let questionSet = await getMenuItems();
-        debugger
         setQuestionSets(questionSet);
     }
 
@@ -20,13 +19,15 @@ const Menu: React.FC<MenuProps> = (props) => {
         getQuestions()
     }, []);
 
-    const onPress = () => {
+    const onPress = (id: int) => {
+        console.log('Menu.onPress: ' + id);
     };
+
     return (
         <View>
             <FlatList
                 data={questionSets}
-                renderItem={({ item }) => <Button title={item.Name} onPress={onPress} />}>
+                renderItem={({ item }) => <Button title={item.Name} onPress={() => onPress(item.Id)} />}>
             </FlatList>
         </View>
     );

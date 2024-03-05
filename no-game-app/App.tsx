@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { get } from './DataHelper.tsx';
 import QuestionSetView from './QuestionSetView.tsx';
 import { QuestionSet } from './QuestionSet.tsx';
+import Menu from './Menu';
 
 // const dataHelper = new DataHelper();
 
@@ -31,6 +32,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <QuestionSetView questionSet={questionSet}/>
+      <Menu />
       <StatusBar style="auto" />
     </View>
   );

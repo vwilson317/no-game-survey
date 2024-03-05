@@ -34,10 +34,11 @@ async function query(sql, params =[]){
       return results.recordsets[0];
     } else {
       //todo: not fully implemented for mutiple or different value types
+      //only support 1 Id parameter for now
       const results = await _pool.request()
-      .input('id', sqlServer.Int, 1)
+      .input('id', sqlServer.BigInt, params[0])
       .query(sql, params);
-      return results;
+      return results.recordsets[0];
     }
 
   } catch(err){
@@ -67,4 +68,11 @@ async function getAllQuestionSets(){
   ;
 }
 
-module.exports = {getRecentQuestionSet, getAllQuestionSets}
+async function getQuestionSetById(id: number){
+  const quertStr = "select * from QuestionSet where Id = @id";
+  const result = await query(quertStr, [id]);
+  return result
+  ;
+}
+
+module.exports = {getRecentQuestionSet, getAllQuestionSets, getQuestionSetById}

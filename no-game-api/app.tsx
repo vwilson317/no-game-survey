@@ -13,29 +13,25 @@ app.use(cors())
 
 app.get('/api/questionsets', async (req, res) => {
   const queryObj = req.query;
-  let questions;
+  let questionSets;
   if (queryObj.recent === '') {
-    questions = await da.getRecentQuestionSet();
+    questionSets = await da.getRecentQuestionSet();
     console.log('[GET] recent questionsets request made')
 
   } else {
-    questions = await da.getAllQuestionSets();
+    questionSets = await da.getAllQuestionSets();
     console.log('[GET] all questionsets request made')
   }
 
-  res.json(questions);
+  res.json(questionSets);
 })
 
-app.get('/api/questionsets/:id', (req, res) => {
+app.get('/api/questionsets/:id', async (req, res) => {
   const id = req.params.id;
+  const questionSet = await da.getQuestionSetById(id);
   console.log(`[GET] /questionsets/${id} request made`)
-  res.json([{
-    id: 1,
-    text: "i'm a mock question from the server?"
-  }]);
+  res.json(questionSet);
 })
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
