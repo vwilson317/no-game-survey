@@ -2,10 +2,11 @@
     "compilerOptions": {
       "target": "ES5",
       "module": "CommonJS",
-      "outDir": "out",
+      "outDir": "./out",
       "sourceMap": true,
-      "allowImportingTsExtensions": true,
-      "noEmit": true,
-      "jsx": "react"
+      // "allowImportingTsExtensions": true,
+      // "noEmit": true,
+      "jsx": "react",
+      "rootDir": "./",
     }
   }

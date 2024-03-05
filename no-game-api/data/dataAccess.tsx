@@ -1,5 +1,5 @@
-import { QuestionSet } from "../models/questionSet.tsx";
-import { Question } from "../models/question.tsx";
+import { QuestionSet } from "../models/questionSet";
+import { Question } from "../models/question";
 
 const sqlServer = require('mssql')
 
@@ -60,4 +60,11 @@ async function getRecentQuestionSet(){
     return questionSet;
 };
 
-module.exports = {getRecentQuestionSet}
+async function getAllQuestionSets(){
+  const quertStr = "select * from QuestionSet Order By LastUpdatedUtc desc";
+  const results = await query(quertStr);
+  return results
+  ;
+}
+
+module.exports = {getRecentQuestionSet, getAllQuestionSets}

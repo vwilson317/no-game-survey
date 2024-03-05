@@ -4,15 +4,22 @@
   "description": "api for the no game app",
   "main": "app.tsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "start": "npx ts-node app.tsx",
+    "dev": "npm run build && nodemon app.tsx",
+    "debug": "npm run build && npm run start"
   },
   "author": "vincent wilson",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.11.19",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mssql": "^10.0.2"

@@ -1,4 +1,4 @@
-import { Question } from "./question.tsx";
+import { Question } from "./question";
 
 export interface QuestionSet {
     Id: number;

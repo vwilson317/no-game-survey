@@ -11,9 +11,15 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\app.tsx",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": ["${workspaceFolder}/out/**/*.js"]
+            // "runtimeExecutable": "npm",
+            // "runtimeArgs": [
+            //     "run-script",
+            //     "dev"
+            // ],
+            // "port": 9229,
+            "program": "${workspaceFolder}/out/app.js",
+            "outFiles": ["${workspaceFolder}/out/**/*.js"],
+            "preLaunchTask": "tsc: watch - tsconfig.json"
         }
     ]
 }
