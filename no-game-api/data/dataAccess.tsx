@@ -70,8 +70,11 @@ async function getAllQuestionSets(){
 
 async function getQuestionSetById(id: number){
   const quertStr = "select * from QuestionSet where Id = @id";
-  const result = await query(quertStr, [id]);
-  return result
+  const questionSet = await query(quertStr, [id]);
+  const questionQueryStr = `select * from Question where QuestionSetId = ${id}`;
+  const questions = await query(questionQueryStr);
+  questionSet[0].Questions = questions;
+  return questionSet
   ;
 }
 
