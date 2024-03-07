@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Config from 'react-native-config';
 import { Platform } from 'react-native';
 import { QuestionSet } from './QuestionSet';
+import { Question } from './question';
 
 export const get = async (id: number | null = null): Promise<QuestionSet> => {
   let data = null;
@@ -44,6 +45,25 @@ export const getMenuItems = async (): Promise<object[]> => {
   } catch {
   }
 
+  return data;
+}
+
+export const saveQuestion = async (id: number, x: Question): Promise<Question> => {
+  const date = new Date().toUTCString();
+  const body = {
+    ...x,
+    UpdateUtc: date,
+    CreateUtc: date
+  };
+
+  const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/questionsets/${id}/questions`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  const data = await response.json();
   return data;
 }
 

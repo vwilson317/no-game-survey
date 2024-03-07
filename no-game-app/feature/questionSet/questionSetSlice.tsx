@@ -35,13 +35,24 @@ export const questionSetSlice = createSlice({
             const question = state.questionSet.Questions.find(x => x.Id === action.payload.id);
             if (question) {
                 question.Text = action.payload.text;
-                // question.UpdateUtc = new Date(new Date().toUTCString());
+            }
+        },
+        updateQuestionType: (state, action: PayloadAction<{ id: number | undefined, value: string }>) => {
+            const question = state.questionSet.Questions.find(x => x.Id === action.payload.id);
+            if (question) {
+                question.Type = action.payload.value;
+            }
+        },
+        update: (state, action: PayloadAction<{ id: number | undefined, value: Question }>) => {
+            let question = state.questionSet.Questions.find(x => x.Id === action.payload.id);
+            if (question) {
+                question = action.payload.value;
             }
         },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { change, addQuestion, updateQuestionText } = questionSetSlice.actions
+export const { change, addQuestion, updateQuestionText, updateQuestionType, update} = questionSetSlice.actions
 
 export default questionSetSlice.reducer

@@ -78,4 +78,18 @@ async function getQuestionSetById(id: number){
   ;
 }
 
-module.exports = {getRecentQuestionSet, getAllQuestionSets, getQuestionSetById}
+async function saveQuestion(id: number, question: Question){
+  const queryStr = "insert into Question (Text, QuestionSetId, Type, CreateUtc, UpdateUtc) output inserted.Id values (@text, @questionSetId, @type, @createUtc, @updateUtc)";
+  const request = _pool.request();
+  request.input('text', sqlServer.NVarChar, question.Text);
+  request.input('questionSetId', sqlServer.BigInt, id);
+  request.input('type', sqlServer.NVarChar, question.Type);
+  request.input('createUtc', sqlServer.DateTime, question.CreateUtc);
+  request.input('updateUtc', sqlServer.DateTime, question.UpdateUtc);
+  const results = await request.query(queryStr);
+  const questionId = results.recordset[0].Id;
+  question.Id = questionId;
+  return question;
+}
+
+module.exports = {getRecentQuestionSet, getAllQuestionSets, getQuestionSetById, saveQuestion}
