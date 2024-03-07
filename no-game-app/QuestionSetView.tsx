@@ -9,7 +9,7 @@ const QuestionSetView = (props: any) => {
         <View>
             <Text>{props.questionSet?.Name}</Text>
             <FlatList data={props.questionSet?.Questions}
-            renderItem={({item}) => <QuestionItem data={item}/>} />
+            renderItem={({item}) => <QuestionItem question={item}/>} />
         </View>
     );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { get } from './DataHelper';
 import QuestionSetView from './QuestionSetView';
 import { QuestionSet } from './QuestionSet';
@@ -8,7 +8,8 @@ import Menu from './Menu';
 import type { RootState } from './store';
 import { store } from './store';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { change } from './feature/questionSet/questionSetSlice';
+import { change, addQuestion } from './feature/questionSet/questionSetSlice';
+import { Question } from './question';
 
 export default function AppEntry() {
     const dispatch = useDispatch();
@@ -24,8 +25,10 @@ export default function AppEntry() {
     const getQuestionSet = async () => {
         const result = await get();
         dispatch(change(result));
-        // const x = useSelector((state: RootState) => state.questionSet.questionSet);
-        // setQuestionSets(x);
+    }
+
+    const addQuestionClick = () => {
+        dispatch(addQuestion({ Text: 'New Question', LastUpdatedUtc: new Date().toUTCString() } as Question));
     }
 
     useEffect(() => {
@@ -37,6 +40,7 @@ export default function AppEntry() {
             <View style={styles.container}>
                 <Menu />
                 <QuestionSetView questionSet={questionSet} />
+                <Button title="Add Question" onPress={addQuestionClick} />
             </View>
         </Provider>
     );

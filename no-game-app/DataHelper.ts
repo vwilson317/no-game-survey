@@ -2,8 +2,9 @@ import AsyncStorage from 'react-native';
 import _ from 'lodash';
 import Config from 'react-native-config';
 import { Platform } from 'react-native';
+import { QuestionSet } from './QuestionSet';
 
-export const get = async (id: number | null = null): Promise<object> => {
+export const get = async (id: number | null = null): Promise<QuestionSet> => {
   let data = null;
   try {
     // TODO: see if the plaform matters with this config value. Expo might take care of everything for us.
@@ -31,7 +32,7 @@ export const get = async (id: number | null = null): Promise<object> => {
     return data;
   }
   else {
-    return { Name: 'No questions found', questions: [] };
+    return { Name: 'No question sets found' } as QuestionSet;
   }
 }
 

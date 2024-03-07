@@ -1,9 +1,20 @@
-import { Text, View , StyleSheet} from 'react-native';
-import React, { useState, useMemo } from 'react';
+import { Text, View , StyleSheet, TextInput, Button} from 'react-native';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Question } from './question';
 import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
+import { updateQuestionText } from './feature/questionSet/questionSetSlice';
 
-export default function QuestionItem(props: any): JSX.Element {
+interface QuestionItemProps {
+  question: Question
+}
+
+export default function QuestionItem(props: QuestionItemProps): JSX.Element {
+  const [selectedId, setSelectedId] = useState<string | undefined>();
+  const [multSelectedId, setMultSelectedId] = useState<string | undefined>();
+  const [questionText, setQuestionText] = useState<string>('');
+  // const [question, setQuestion] = useState<Question>(props.question);
+  const dispatch = useDispatch();
 
   const yesNoBtns: RadioButtonProps[] = useMemo(() => ([
     {
@@ -18,8 +29,9 @@ export default function QuestionItem(props: any): JSX.Element {
     }
   ]), []);
 
-  const [selectedId, setSelectedId] = useState<string | undefined>();
-  const [multSelectedId, setMultSelectedId] = useState<string | undefined>();
+  const updateQuestion = () => {
+    dispatch(updateQuestionText({id: props.question.Id, text: questionText}));
+  } 
 
   const options = (question: Question) => {
     if (question.Type === 'YesOrNo') {
@@ -42,12 +54,23 @@ export default function QuestionItem(props: any): JSX.Element {
         <RadioGroup radioButtons={mutipleChoiceBtns} onPress={setMultSelectedId} selectedId={multSelectedId} />
       )
     }
+    if(question.Type === 'FillInTheBlank'){
+      return (
+        <TextInput style={styles.txtInput}/>
+      )
+    }
+    if(question.Type === undefined){
+      return (
+        <TextInput style={styles.txtInput} placeholder='new question...' 
+        onChangeText={setQuestionText} value={questionText} onBlur={updateQuestion}/>
+      )
+    }
   }
 
   return (
     <View style={styles.container}>
-      <Text>{props.data.Text}</Text>
-      {options(props.data)}
+      {props.question?.Type !== undefined ? <Text>{props.question?.Text}</Text> : <></>}
+      {options(props.question)}
     </View>
   )
 }
@@ -60,6 +83,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       direction: 'rtl'
   },
+  txtInput: {
+    borderColor: 'gray',
+    borderWidth: 1,
+  }
 });
-
-// export default QuestionItem;
