@@ -41,6 +41,14 @@ app.post('/api/questionsets/:id/questions', async (req, res) => {
   res.json(questionSet);
 })
 
+app.post('/api/questionsets', async (req, res) => {
+  const id = req.params.id;
+  const obj = req.body;
+  const questionSet = await da.saveQuestionSet(obj);
+  console.log(`[POST] /questionsets request made`)
+  res.json(questionSet);
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

@@ -92,4 +92,15 @@ async function saveQuestion(id: number, question: Question){
   return question;
 }
 
-module.exports = {getRecentQuestionSet, getAllQuestionSets, getQuestionSetById, saveQuestion}
+async function saveQuestionSet(questionSet: QuestionSet){
+  const queryStr = "insert into QuestionSet (Name, LastUpdatedUtc) output inserted.Id values (@name, @lastUpdatedUtc)";
+  const request = _pool.request();
+  request.input('name', sqlServer.NVarChar, questionSet.Name);
+  request.input('lastUpdatedUtc', sqlServer.DateTime, questionSet.LastUpdatedUtc);
+  const results = await request.query(queryStr);
+  const questionId = results.recordset[0].Id;
+  questionSet.Id = questionId;
+  return questionSet;
+}
+
+module.exports = {getRecentQuestionSet, getAllQuestionSets, getQuestionSetById, saveQuestion, saveQuestionSet}

@@ -5,7 +5,7 @@ import { getMenuItems } from '../../data/DataHelper';
 import { Question } from '../../models/Question';
 import { useDispatch } from 'react-redux';
 import { change } from '../questionSet/questionSetSlice';
-import { get } from '../../data/DataHelper';
+import { get, saveQuestionSet } from '../../data/DataHelper';
 
 interface MenuProps {
     // define your props here
@@ -32,13 +32,20 @@ const Menu: React.FC<MenuProps> = (props: MenuProps) => {
         });
     };
 
+    const addQuestionSet = async () => {
+        const newQuestionSet = { Id: undefined, Name: 'New Question Set', Questions: [] } as Question;
+        const dbQuestionSet = await saveQuestionSet(newQuestionSet);
+        dispatch(change(dbQuestionSet));
+        questionSets.push(dbQuestionSet);
+    };
+
     return (
         <View>
             <FlatList
                 data={questionSets}
                 renderItem={({ item }) => <Button title={item.Name} onPress={() => onPress(item.Id)} />}>
             </FlatList>
-            <Button title="Add Question Set" onPress={() => console.log('Add Question Set')} />
+            <Button title="Add Question Set" onPress={addQuestionSet} />
         </View>
     );
 }

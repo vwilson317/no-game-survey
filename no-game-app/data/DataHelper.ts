@@ -67,6 +67,24 @@ export const saveQuestion = async (id: number, x: Question): Promise<Question> =
   return data;
 }
 
+export const saveQuestionSet = async (x: QuestionSet): Promise<QuestionSet> => {
+  const date = new Date().toUTCString();
+  const body = {
+    ...x,
+    LastUpdatedUtc: date
+  };
+
+  const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/questionsets`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  const data = await response.json();
+  return data;
+}
+
 //   public async save() {
 //     //await AsyncStorage.setItem('1', 'SomeQuestion')
 //   }
