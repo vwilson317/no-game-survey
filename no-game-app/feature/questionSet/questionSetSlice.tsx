@@ -43,16 +43,16 @@ export const questionSetSlice = createSlice({
                 question.Type = action.payload.value;
             }
         },
-        update: (state, action: PayloadAction<{ id: number | undefined, value: Question }>) => {
-            let question = state.questionSet.Questions.find(x => x.Id === action.payload.id);
+        updateId: (state, action: PayloadAction<{ id: number | undefined, value: number }>) => {
+            const question = state.questionSet.Questions.find(x => x.Id === action.payload.id);
             if (question) {
-                question = action.payload.value;
+                question.Id = action.payload.value;
             }
         },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { change, addQuestion, updateQuestionText, updateQuestionType, update} = questionSetSlice.actions
+export const { change, addQuestion, updateQuestionText, updateQuestionType, updateId} = questionSetSlice.actions
 
 export default questionSetSlice.reducer

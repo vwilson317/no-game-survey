@@ -14,48 +14,21 @@ import { Question } from './question';
 export default function AppEntry() {
     const dispatch = useDispatch();
 
-    const defaultQuestionSet: QuestionSet = {
-        Id: 0,
-        Name: null,
-        LastUpdatedUtc: null,
-        Questions: []
-    };
-    // const [questionSet, setQuestionSets] = useState(defaultQuestionSet);
     const questionSet = useSelector((state: RootState) => state.questionSet.questionSet);
     const getQuestionSet = async () => {
         const result = await get();
         dispatch(change(result));
-        setShowAddBtn(true);
     }
-    const [showAddBtn, setShowAddBtn] = useState(true);
-
-    const addQuestionClick = () => {
-        setShowAddBtn(false);
-        dispatch(addQuestion({} as Question));
-    }
-
-    // const addQuestionBtn = () => {
-    //     if(questionSet?.Questions?.length > 0) {
-    //         const lastQuestion = questionSet.Questions[questionSet.Questions.length - 1];
-    //         if (lastQuestion?.Id === undefined) {
-    //             debugger
-    //             setShowAddBtn(false);
-    //         }
-    //     } 
-    // }
 
     useEffect(() => {
         getQuestionSet()
-        console.log(questionSet?.Questions?.length);
-        // addQuestionBtn()
     }, []);
 
     return (
         <Provider store={store}>
             <View style={styles.container}>
-                <Menu />
                 <QuestionSetView questionSet={questionSet} />
-                {showAddBtn ? <Button title="Add Question" onPress={addQuestionClick} /> : <></>}
+                <Menu />
             </View>
         </Provider>
     );
@@ -67,5 +40,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        overflow: 'scroll',
+        width: '90%',
     },
 });

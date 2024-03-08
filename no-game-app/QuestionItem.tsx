@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Question } from './question';
 import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
-import { updateQuestionText, update } from './feature/questionSet/questionSetSlice';
+import { updateQuestionText, updateId } from './feature/questionSet/questionSetSlice';
 import QuestionTypeDropDown from './QuestionTypeDropDown';
 import { saveQuestion } from './DataHelper';
 
@@ -38,15 +38,15 @@ export default function QuestionItem(props: QuestionItemProps): JSX.Element {
 
   const save = async () => {
     const dbQuestion = await saveQuestion(questionSetId, question);
-    dispatch(update(questionSetId, dbQuestion));
+    dispatch(updateId({id: undefined, value: dbQuestion}));
     setQuestionId(dbQuestion.Id);
   }
 
-  useEffect(() => {
-    // if (question !== undefined) {
-    //   setQuestionText(question.Text || '');
-    // }
-  }, [question.Id]);
+  // useEffect(() => {
+  //   // if (question !== undefined) {
+  //   //   setQuestionText(question.Text || '');
+  //   // }
+  // }, [question.Id]);
 
   const options = (question: Question) => {
     if (questionId === undefined) {
