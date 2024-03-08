@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, FlatList, Text, View } from "react-native";
-import QuestionItem from "./QuestionItem";
-import { Question } from "./question";
-import { addQuestion } from "./feature/questionSet/questionSetSlice";
+import QuestionItem from "../question/QuestionItem";
+import { Question } from "../../models/Question";
+import { addQuestion } from "./questionSetSlice";
 import { useDispatch } from "react-redux";
 
 const QuestionSetView = (props: any) => {

@@ -2,8 +2,8 @@ import AsyncStorage from 'react-native';
 import _ from 'lodash';
 import Config from 'react-native-config';
 import { Platform } from 'react-native';
-import { QuestionSet } from './QuestionSet';
-import { Question } from './question';
+import { QuestionSet } from '../models/QuestionSet';
+import { Question } from '../models/Question';
 
 export const get = async (id: number | null = null): Promise<QuestionSet> => {
   let data = null;

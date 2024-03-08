@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { QuestionSet } from '../../QuestionSet'
-import { Question } from '../../question'
+import { QuestionSet } from '../../models/QuestionSet'
+import { Question } from '../../models/Question'
 
 export interface QuestionSetState {
     questionSet: QuestionSet

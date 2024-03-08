@@ -1,11 +1,11 @@
 import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
 import React, { useState, useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Question } from './question';
+import { Question } from '../../models/Question';
 import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
-import { updateQuestionText, updateId } from './feature/questionSet/questionSetSlice';
+import { updateQuestionText, updateId } from '../questionSet/questionSetSlice';
 import QuestionTypeDropDown from './QuestionTypeDropDown';
-import { saveQuestion } from './DataHelper';
+import { saveQuestion } from '../../data/DataHelper';
 
 interface QuestionItemProps {
   question: Question

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useDispatch, useSelector } from "react-redux";
-import { updateQuestionType } from "./feature/questionSet/questionSetSlice";
+import { updateQuestionType } from "../questionSet/questionSetSlice";
 
 interface TypeProps {
 }
