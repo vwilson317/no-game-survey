@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Question } from '../../models/Question';
 import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
-import { updateQuestionText, updateId } from '../questionSet/questionSetSlice';
+import { updateQuestionText, updateQuestionId } from '../questionSet/questionSetSlice';
 import QuestionTypeDropDown from './QuestionTypeDropDown';
 import { saveQuestion } from '../../data/DataHelper';
 
@@ -38,7 +38,7 @@ export default function QuestionItem(props: QuestionItemProps): JSX.Element {
 
   const save = async () => {
     const dbQuestion = await saveQuestion(questionSetId, question);
-    dispatch(updateId({id: undefined, value: dbQuestion}));
+    dispatch(updateQuestionId({id: undefined, value: dbQuestion}));
     setQuestionId(dbQuestion.Id);
   }
 

@@ -3,9 +3,9 @@ import { Button, FlatList, View, Text } from 'react-native';
 import { useEffect, useState } from 'react';
 import { getMenuItems } from '../../data/DataHelper';
 import { Question } from '../../models/Question';
-import { useDispatch } from 'react-redux';
-import { change } from '../questionSet/questionSetSlice';
-import { get, saveQuestionSet } from '../../data/DataHelper';
+import { useDispatch, useSelector } from 'react-redux';
+import { addQuestionSets, change } from '../questionSet/questionSetSlice';
+import { get } from '../../data/DataHelper';
 
 interface MenuProps {
     // define your props here
@@ -13,16 +13,13 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> = (props: MenuProps) => {
     const dispatch = useDispatch();
-    const [questionSets, setQuestionSets] = useState([{} as Question]);
-
-    const getMenu = async () => {
-        const menuQuestionSets = await getMenuItems();
-        setQuestionSets(menuQuestionSets);
-    }
+    // const [questionSets, setQuestionSets] = useState([{} as Question]);
+    // const questionSet = useSelector((state: any) => state.questionSet.questionSet);
+    // const [newQuestionClicked, setNewQuestionClicked] = useState(false);
+    const questionSets = useSelector((state: any) => state.questionSet.questionSetsAvailable);
 
     useEffect(() => {
-        getMenu()
-    }, []);
+    }, [questionSets]);
 
     const onPress = (id: number) => {
         console.log('Menu.onPress: ' + id);
@@ -34,9 +31,9 @@ const Menu: React.FC<MenuProps> = (props: MenuProps) => {
 
     const addQuestionSet = async () => {
         const newQuestionSet = { Id: undefined, Name: 'New Question Set', Questions: [] } as Question;
-        const dbQuestionSet = await saveQuestionSet(newQuestionSet);
-        dispatch(change(dbQuestionSet));
-        questionSets.push(dbQuestionSet);
+        dispatch(change(newQuestionSet));
+        // setNewQuestionClicked(true);
+        // questionSets.push(questionSet);
     };
 
     return (
