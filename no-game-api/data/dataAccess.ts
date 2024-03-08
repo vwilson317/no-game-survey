@@ -49,7 +49,7 @@ async function query(sql, params =[]){
   // return rows;
 };
 
-async function getRecentQuestionSet(){
+export async function getRecentQuestionSet(){
     const quertStr = "select top(1) * from QuestionSet Order By LastUpdatedUtc desc";
     
     //this is business logic, so it should not be in the data access layer
@@ -61,14 +61,14 @@ async function getRecentQuestionSet(){
     return questionSet;
 };
 
-async function getAllQuestionSets(){
+export async function getAllQuestionSets(){
   const quertStr = "select * from QuestionSet Order By LastUpdatedUtc desc";
   const results = await query(quertStr);
   return results
   ;
 }
 
-async function getQuestionSetById(id: number){
+export async function getQuestionSetById(id: number){
   const quertStr = "select * from QuestionSet where Id = @id";
   const questionSet = await query(quertStr, [id]);
   const questionQueryStr = `select * from Question where QuestionSetId = ${id}`;
@@ -78,7 +78,7 @@ async function getQuestionSetById(id: number){
   ;
 }
 
-async function saveQuestion(id: number, question: Question){
+export async function saveQuestion(id: number, question: Question){
   const queryStr = "insert into Question (Text, QuestionSetId, Type, CreateUtc, UpdateUtc) output inserted.Id values (@text, @questionSetId, @type, @createUtc, @updateUtc)";
   const request = _pool.request();
   request.input('text', sqlServer.NVarChar, question.Text);
@@ -92,7 +92,7 @@ async function saveQuestion(id: number, question: Question){
   return question;
 }
 
-async function saveQuestionSet(questionSet: QuestionSet){
+export async function saveQuestionSet(questionSet: QuestionSet){
   const queryStr = "insert into QuestionSet (Name, LastUpdatedUtc) output inserted.Id values (@name, @lastUpdatedUtc)";
   const request = _pool.request();
   request.input('name', sqlServer.NVarChar, questionSet.Name);
@@ -103,4 +103,4 @@ async function saveQuestionSet(questionSet: QuestionSet){
   return questionSet;
 }
 
-module.exports = {getRecentQuestionSet, getAllQuestionSets, getQuestionSetById, saveQuestion, saveQuestionSet}
+// module.exports = {getRecentQuestionSet, getAllQuestionSets, getQuestionSetById, saveQuestion, saveQuestionSet}
