@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { get, getMenuItems } from './data/DataHelper';
 import QuestionSetView from './feature/questionSet/QuestionSetView';
 import { QuestionSet } from './models/QuestionSet';
@@ -10,6 +10,16 @@ import { store } from './store';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { change, addQuestion, addQuestionSets } from './feature/questionSet/questionSetSlice';
 import { Question } from './models/Question';
+import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
+
+const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: 'tomato',
+      secondary: 'yellow',
+    },
+  };
 
 export default function AppEntry() {
     const dispatch = useDispatch();
@@ -33,10 +43,12 @@ export default function AppEntry() {
 
     return (
         <Provider store={store}>
-            <View style={styles.container}>
-                <QuestionSetView questionSet={questionSet} />
-                <Menu />
-            </View>
+            <PaperProvider theme={theme}>
+                <SafeAreaView style={styles.container}>
+                    <QuestionSetView questionSet={questionSet} />
+                    <Menu />
+                </SafeAreaView>
+            </PaperProvider>
         </Provider>
     );
 }
